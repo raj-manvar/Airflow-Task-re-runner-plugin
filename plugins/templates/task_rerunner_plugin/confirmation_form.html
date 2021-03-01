@@ -1,0 +1,30 @@
+{% extends 'airflow/master.html' %}
+
+{% block title %}Clear Task based on logs{% endblock %}
+
+{% block body %}
+{{ super() }}
+<h4>Following tasks and it's downstream dependencies will cleared</h4>
+<h4>Remove the lines for tasks which you want to exclude</h4>
+<h4>Press submit button to confirm</h4>
+<form action="" method="post">
+    {{form.hidden_tag()}}
+    <br/>
+    <p>
+        {{form.tasks_list}}
+    </p>
+    <p>
+        {{form.clear_downstream.label}}
+        {{form.clear_downstream()}}
+        {% for error in form.clear_downstream.errors %}
+        <span style="color: red">[{{error}}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{form.submit_button()}}
+    </p>
+</form>
+{% endblock %}
+{% block tail %}
+{{ super() }}
+{% endblock %}

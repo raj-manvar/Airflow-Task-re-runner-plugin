@@ -1,0 +1,50 @@
+{% extends 'airflow/master.html' %}
+
+{% block title %}Clear Task based on logs{% endblock %}
+
+{% block body %}
+{{ super() }}
+<h4>{{ title }}</h4>
+<form action="" method="post">
+    {{ task_rerun_form.hidden_tag() }}
+    <br/>
+    <p>
+        {{task_rerun_form.logs_regex.label}}
+        {{task_rerun_form.logs_regex(size=32)}}
+        {% for error in task_rerun_form.logs_regex.errors %}
+        <span style="color: red">[{{error}}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{task_rerun_form.dag_id_regex.label}}
+        {{task_rerun_form.dag_id_regex(size=32)}}
+        {% for error in task_rerun_form.dag_id_regex.errors %}
+        <span style="color: red">[{{error}}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{task_rerun_form.task_id_regex.label}}
+        {{task_rerun_form.task_id_regex(size=32)}}
+        {% for error in task_rerun_form.task_id_regex.errors %}
+        <span style="color: red">[{{error}}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{task_rerun_form.duration.label}}
+        {{task_rerun_form.duration(size=32)}}
+        {% for error in task_rerun_form.duration.errors %}
+        <span style="color: red">[{{error}}]</span>
+        {% endfor %}
+    </p>
+    <br/>
+    <h6> You will be re-directed to confirmation page after submitting </h6>
+    <p>
+        {{task_rerun_form.submit()}}
+    </p>
+</form>
+
+{% endblock %}
+{% block tail %}
+{{ super() }}
+
+{% endblock %}
